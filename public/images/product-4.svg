@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1f25"/>
+      <stop offset="100%" stop-color="#0d1014"/>
+    </linearGradient>
+    <linearGradient id="tee" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9aa3ab"/>
+      <stop offset="45%" stop-color="#7f8890"/>
+      <stop offset="72%" stop-color="#4f7f93"/>
+      <stop offset="100%" stop-color="#1e6f93"/>
+    </linearGradient>
+    <radialGradient id="drop" cx="50%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#7fd3e6" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#1e6f93" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <!-- t-shirt silhouette -->
+  <path d="M250 230 L160 300 L210 400 L270 360 L270 820 Q400 850 530 820 L530 360 L590 400 L640 300 L550 230 Q480 280 400 280 Q320 280 250 230 Z" fill="url(#tee)"/>
+  <!-- water droplets near hem -->
+  <circle cx="340" cy="700" r="60" fill="url(#drop)"/>
+  <circle cx="470" cy="740" r="80" fill="url(#drop)"/>
+  <circle cx="400" cy="780" r="50" fill="url(#drop)"/>
+  <ellipse cx="400" cy="290" rx="80" ry="22" fill="#0d1014" opacity="0.3"/>
+  <text x="400" y="500" font-family="sans-serif" font-size="34" fill="#e7edf2" text-anchor="middle" opacity="0.85">RAINDROP TEE</text>
+  <text x="400" y="545" font-family="sans-serif" font-size="20" fill="#9fb0bd" text-anchor="middle">HEM 밑단 그라데이션</text>
+  <text x="400" y="950" font-family="sans-serif" font-size="16" fill="#728292" text-anchor="middle">placeholder · 실제 사진으로 교체하세요</text>
+</svg>
