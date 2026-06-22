@@ -20,9 +20,8 @@ const PRODUCTS: Product[] = [
     sizes: ["M", "L"],
     images: [
       // ▼ 상품 사진 (현재 1장).
-      //   진짜 사진을 넣으려면: public/images/ 에 product-1.jpg 를 추가한 뒤
-      //   아래 경로의 .svg 를 .jpg 로 바꾸면 끝입니다.
-      "/images/product-1.svg",
+      //   사진을 더 추가하려면 public/images/ 에 파일을 넣고 아래 배열에 경로를 추가하세요.
+      "/images/product-1.png",
     ],
     shortDescription:
       "상단은 차분한 헤더 그레이, 밑단으로 갈수록 물방울이 번지는 그라데이션 티셔츠.",

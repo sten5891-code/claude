@@ -1,17 +1,19 @@
-# 상품 이미지 교체 안내
+# 상품 이미지 안내
 
-현재 이 폴더에는 **placeholder(임시) 이미지 1장**(`product-1.svg`)만 있습니다.
-업로드하신 실제 티셔츠 사진으로 교체하세요. (모델 컷 없이 제품 사진만)
+현재 상품 사진: **`product-1.png`** (1장)
 
-## 실제 사진 넣는 법 (제일 쉬운 방법)
+## 사진을 바꾸거나 추가하려면
 
-1. 이 `public/images/` 폴더에 사진을 **`product-1.jpg`** 라는 이름으로 추가
-   (GitHub 웹에서 폴더 열고 *Add file → Upload files* 로 끌어다 놓으면 됩니다)
-2. `src/lib/data/products.ts` 의 이미지 경로에서 `.svg` → `.jpg` 로 한 글자만 변경
-   ```
-   "/images/product-1.svg"  →  "/images/product-1.jpg"
-   ```
+- **교체:** 같은 이름(`product-1.png`)으로 새 파일을 덮어쓰면 끝.
+  - 확장자가 달라지면(예: `.jpg`) `src/lib/data/products.ts` 의 경로도 같이 바꿔주세요.
+- **추가:** `public/images/` 에 파일을 올리고 `src/lib/data/products.ts` 의
+  `images` 배열에 경로를 추가하면 썸네일이 자동으로 늘어납니다.
+  ```ts
+  images: [
+    "/images/product-1.png",
+    "/images/product-2.png", // ← 추가
+  ],
+  ```
 
-> 권장 비율 1:1 또는 4:5 (예: 1000×1000). 갤러리/썸네일/확대(zoom)에 모두 사용됩니다.
-> 사진을 더 추가하고 싶으면 `products.ts` 의 `images` 배열에 경로를 더 넣으면
-> 썸네일이 자동으로 늘어납니다.
+> 권장 비율 1:1 또는 4:5 (예: 1000×1000 이상). 갤러리·썸네일·확대(zoom)에 모두 쓰입니다.
+> 모델 컷 없이 제품 사진만 사용하세요.
