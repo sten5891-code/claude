@@ -10,7 +10,11 @@ import {
 import { useCart, selectSubtotal } from "@/lib/store/cart";
 import { calcShipping, formatKRW } from "@/lib/format";
 
-const CLIENT_KEY = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY ?? "";
+// 환경변수가 없으면 토스페이먼츠 공개 "테스트" 클라이언트 키로 동작합니다.
+// (배포 후 별도 설정 없이도 테스트 결제 가능 / 라이브 전환은 Vercel 환경변수로 교체)
+const CLIENT_KEY =
+  process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY ??
+  "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 
 export default function CheckoutPage() {
   const router = useRouter();

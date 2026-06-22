@@ -7,14 +7,12 @@ import { NextResponse } from "next/server";
 //  docs: https://docs.tosspayments.com/reference#결제-승인
 // ─────────────────────────────────────────────────────────────
 
+// 환경변수가 없으면 토스페이먼츠 공개 "테스트" 시크릿 키로 동작합니다.
+// (배포 후 별도 설정 없이도 테스트 결제 승인 가능 / 라이브 전환은 환경변수로 교체)
+const TEST_SECRET_KEY = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6";
+
 export async function POST(request: Request) {
-  const secretKey = process.env.TOSS_SECRET_KEY;
-  if (!secretKey) {
-    return NextResponse.json(
-      { message: "서버에 TOSS_SECRET_KEY가 설정되지 않았습니다." },
-      { status: 500 }
-    );
-  }
+  const secretKey = process.env.TOSS_SECRET_KEY ?? TEST_SECRET_KEY;
 
   const { paymentKey, orderId, amount } = await request.json();
   if (!paymentKey || !orderId || !amount) {
