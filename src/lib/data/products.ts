@@ -19,12 +19,10 @@ const PRODUCTS: Product[] = [
     color: "Heather Gray",
     sizes: ["M", "L"],
     images: [
-      // placeholder SVG → 실제 사진(jpg/png 등)으로 교체하세요.
-      // 파일을 같은 이름으로 덮어쓰거나, 아래 경로를 새 파일명으로 바꾸면 됩니다.
+      // ▼ 상품 사진 (현재 1장).
+      //   진짜 사진을 넣으려면: public/images/ 에 product-1.jpg 를 추가한 뒤
+      //   아래 경로의 .svg 를 .jpg 로 바꾸면 끝입니다.
       "/images/product-1.svg",
-      "/images/product-2.svg",
-      "/images/product-3.svg",
-      "/images/product-4.svg",
     ],
     shortDescription:
       "상단은 차분한 헤더 그레이, 밑단으로 갈수록 물방울이 번지는 그라데이션 티셔츠.",

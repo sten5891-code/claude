@@ -1,29 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1a1f25"/>
-      <stop offset="100%" stop-color="#0d1014"/>
-    </linearGradient>
     <linearGradient id="tee" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#9aa3ab"/>
-      <stop offset="45%" stop-color="#7f8890"/>
-      <stop offset="72%" stop-color="#4f7f93"/>
-      <stop offset="100%" stop-color="#1e6f93"/>
+      <stop offset="0%" stop-color="#c9ccce"/>
+      <stop offset="55%" stop-color="#bdc0c3"/>
+      <stop offset="100%" stop-color="#a9adb1"/>
     </linearGradient>
-    <radialGradient id="drop" cx="50%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#7fd3e6" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#1e6f93" stop-opacity="0"/>
+    <radialGradient id="drop" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="60%" stop-color="#dfe3e6" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#9aa0a4" stop-opacity="0"/>
     </radialGradient>
+    <filter id="heather"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/>
+      <feColorMatrix in="n" type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feComposite in2="SourceGraphic" operator="over"/></filter>
   </defs>
-  <rect width="800" height="1000" fill="url(#bg)"/>
-  <!-- t-shirt silhouette -->
-  <path d="M250 230 L160 300 L210 400 L270 360 L270 820 Q400 850 530 820 L530 360 L590 400 L640 300 L550 230 Q480 280 400 280 Q320 280 250 230 Z" fill="url(#tee)"/>
-  <!-- water droplets near hem -->
-  <circle cx="340" cy="700" r="60" fill="url(#drop)"/>
-  <circle cx="470" cy="740" r="80" fill="url(#drop)"/>
-  <circle cx="400" cy="780" r="50" fill="url(#drop)"/>
-  <ellipse cx="400" cy="290" rx="80" ry="22" fill="#0d1014" opacity="0.3"/>
-  <text x="400" y="500" font-family="sans-serif" font-size="34" fill="#e7edf2" text-anchor="middle" opacity="0.85">RAINDROP TEE</text>
-  <text x="400" y="545" font-family="sans-serif" font-size="20" fill="#9fb0bd" text-anchor="middle">FRONT 정면</text>
-  <text x="400" y="950" font-family="sans-serif" font-size="16" fill="#728292" text-anchor="middle">placeholder · 실제 사진으로 교체하세요</text>
+  <rect width="1000" height="1000" fill="#e9eaeb"/>
+  <!-- crew-neck t-shirt -->
+  <g filter="url(#heather)">
+    <path d="M360 175
+             Q500 250 640 175
+             L770 235 L860 360 L780 430 L735 380
+             L735 835 Q500 880 265 835
+             L265 380 L220 430 L140 360 L230 235 Z"
+          fill="url(#tee)" stroke="#9b9fa3" stroke-width="2"/>
+    <path d="M400 178 Q500 240 600 178 Q500 210 400 178 Z" fill="#aeb2b6"/>
+  </g>
+  <!-- water droplets, denser toward the hem -->
+  <g>
+    <circle cx="360" cy="700" r="34" fill="url(#drop)"/>
+    <circle cx="470" cy="760" r="26" fill="url(#drop)"/>
+    <circle cx="560" cy="710" r="40" fill="url(#drop)"/>
+    <circle cx="640" cy="770" r="22" fill="url(#drop)"/>
+    <circle cx="300" cy="780" r="20" fill="url(#drop)"/>
+    <circle cx="420" cy="690" r="16" fill="url(#drop)"/>
+    <circle cx="520" cy="800" r="30" fill="url(#drop)"/>
+    <circle cx="610" cy="700" r="14" fill="url(#drop)"/>
+    <circle cx="680" cy="720" r="18" fill="url(#drop)"/>
+    <circle cx="340" cy="640" r="12" fill="url(#drop)"/>
+    <circle cx="460" cy="640" r="10" fill="url(#drop)"/>
+    <circle cx="560" cy="640" r="12" fill="url(#drop)"/>
+    <circle cx="500" cy="600" r="8" fill="url(#drop)"/>
+    <circle cx="700" cy="650" r="10" fill="url(#drop)"/>
+    <circle cx="280" cy="700" r="11" fill="url(#drop)"/>
+  </g>
+  <text x="500" y="965" font-family="sans-serif" font-size="18" fill="#9aa0a4" text-anchor="middle">placeholder · 실제 상품 사진으로 교체하세요 (product-1.jpg)</text>
 </svg>
