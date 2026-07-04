@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCart, selectSubtotal } from "@/lib/store/cart";
 import { calcShipping, formatKRW, FREE_SHIPPING_THRESHOLD } from "@/lib/format";
+import ProductVisual from "@/components/product/ProductVisual";
 
 export default function CartPage() {
   const { items, hydrated, updateQuantity, removeItem } = useCart();
@@ -44,14 +45,21 @@ export default function CartPage() {
             >
               <Link
                 href={`/products/${item.slug}`}
-                className="relative aspect-square w-24 shrink-0 overflow-hidden rounded-xl bg-ink-800"
+                className="relative aspect-square w-24 shrink-0 overflow-hidden rounded-xl bg-surface-raised"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="h-full w-full object-cover"
-                />
+                {item.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <ProductVisual
+                    hue={item.hue ?? 258}
+                    className="h-full w-full"
+                  />
+                )}
               </Link>
 
               <div className="flex flex-1 flex-col">

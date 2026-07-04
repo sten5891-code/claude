@@ -22,7 +22,8 @@ export default function ProductPurchase({ product }: { product: Product }) {
     price: product.price,
     size: selected,
     quantity: qty,
-    image: product.images[0],
+    image: product.images[0] ?? "",
+    hue: product.hue,
   });
 
   const handleAdd = () => {

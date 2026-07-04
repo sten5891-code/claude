@@ -15,7 +15,7 @@ export async function generateMetadata({
   params: { slug: string };
 }) {
   const product = await getProductBySlug(params.slug);
-  return { title: product ? `${product.name} — AQUA LABEL` : "상품" };
+  return { title: product ? `${product.name} — MŌRPH` : "상품" };
 }
 
 export default async function ProductDetailPage({
@@ -30,12 +30,12 @@ export default async function ProductDetailPage({
     <div className="container-page py-12">
       {/* 상단: 갤러리 + 구매 영역 */}
       <div className="grid gap-12 lg:grid-cols-2">
-        <Gallery images={product.images} alt={product.name} />
+        <Gallery images={product.images} alt={product.name} hue={product.hue} />
         <ProductPurchase product={product} />
       </div>
 
       {/* 하단: 탭 (상세 / 리뷰 / Q&A) */}
-      <div className="mt-20">
+      <div className="mt-24">
         <ProductTabs product={product} />
       </div>
     </div>

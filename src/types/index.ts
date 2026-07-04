@@ -4,11 +4,11 @@
 //  데이터 레이어와 분리해 둡니다.
 // ─────────────────────────────────────────────────────────────
 
-export type Size = "M" | "L";
+export type Size = "XS" | "S" | "M" | "L";
 
 export interface SizeSpec {
   size: Size;
-  /** 가슴 단면 (cm) */
+  /** 가슴/허리 단면 (cm) */
   chest: number;
   /** 총장 (cm) */
   length: number;
@@ -26,9 +26,16 @@ export interface Product {
   /** 정가 (원) */
   price: number;
   color: string;
+  /** 분류 (예: OUTERWEAR / DRESS / KNIT) */
+  category: string;
   sizes: Size[];
-  /** 갤러리 이미지 경로 (public 기준) */
+  /**
+   * 갤러리 이미지 경로 (public 기준). 비어 있으면 제네러티브 크롬
+   * 비주얼로 대체됩니다. 실제 촬영본이 생기면 여기에 경로만 넣으세요.
+   */
   images: string[];
+  /** 제네러티브 비주얼의 기준 색상 (0-360). 실제 이미지가 없을 때 사용 */
+  hue: number;
   shortDescription: string;
   description: string;
   sizeChart: SizeSpec[];
@@ -45,6 +52,8 @@ export interface CartItem {
   size: Size;
   quantity: number;
   image: string;
+  /** 제네러티브 비주얼 fallback용 (image 없을 때) */
+  hue?: number;
 }
 
 export interface Review {

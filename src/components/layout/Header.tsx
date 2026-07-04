@@ -1,64 +1,69 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart, selectCount } from "@/lib/store/cart";
 
 const NAV = [
   { href: "/", label: "홈" },
-  { href: "/products", label: "전체상품" },
-  { href: "/products/raindrop-tee", label: "RAINDROP TEE" },
+  { href: "/products", label: "컬렉션" },
+  { href: "/products/nullform-coat", label: "시그니처" },
 ];
 
 export default function Header() {
   const count = useCart(selectCount);
   const hydrated = useCart((s) => s.hydrated);
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/5 bg-ink-950/80 backdrop-blur-md">
+    <header
+      className={`sticky top-0 z-40 border-b transition-colors duration-base ${
+        scrolled
+          ? "border-line bg-void/70 backdrop-blur-xl"
+          : "border-transparent bg-transparent"
+      }`}
+    >
       <div className="container-page flex h-16 items-center justify-between">
         {/* 로고 */}
         <Link href="/" className="group flex items-center gap-2">
-          <span className="text-lg font-semibold tracking-[0.2em] text-mist-100">
-            AQUA
+          <span className="font-display text-xl font-extrabold tracking-[0.15em] text-chrome">
+            MŌRPH
           </span>
-          <span className="h-2 w-2 rounded-full bg-drop shadow-glass transition group-hover:animate-ripple" />
-          <span className="text-lg font-light tracking-[0.2em] text-mist-300">
-            LABEL
-          </span>
+          <span className="h-1.5 w-1.5 rounded-full bg-iris-violet shadow-glow transition group-hover:scale-150" />
         </Link>
 
         {/* 데스크탑 네비 */}
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-9 md:flex">
           {NAV.map((n) => (
             <Link
               key={n.href}
               href={n.href}
-              className="text-sm text-mist-300 transition hover:text-drop-light"
+              className="group relative text-sm text-text-muted transition hover:text-text"
             >
               {n.label}
+              <span className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-to-r from-iris-violet to-iris-cyan transition-all duration-base ease-expo group-hover:w-full" />
             </Link>
           ))}
         </nav>
 
         {/* 우측 액션 */}
-        <div className="flex items-center gap-4">
-          <button
-            aria-label="검색"
-            className="text-mist-300 transition hover:text-drop-light"
-          >
-            <SearchIcon />
-          </button>
-
+        <div className="flex items-center gap-5">
           <Link
             href="/cart"
             aria-label="장바구니"
-            className="relative text-mist-300 transition hover:text-drop-light"
+            className="relative text-text-muted transition hover:text-text"
           >
             <CartIcon />
             {hydrated && count > 0 && (
-              <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-drop px-1 text-[11px] font-semibold text-white shadow-glass">
+              <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-iris-violet px-1 text-[11px] font-semibold text-white shadow-glow">
                 {count}
               </span>
             )}
@@ -66,7 +71,7 @@ export default function Header() {
 
           <button
             aria-label="메뉴"
-            className="text-mist-300 md:hidden"
+            className="text-text-muted md:hidden"
             onClick={() => setOpen((v) => !v)}
           >
             <MenuIcon />
@@ -76,14 +81,14 @@ export default function Header() {
 
       {/* 모바일 네비 */}
       {open && (
-        <nav className="border-t border-white/5 bg-ink-900 md:hidden">
+        <nav className="border-t border-line bg-surface md:hidden">
           <div className="container-page flex flex-col py-2">
             {NAV.map((n) => (
               <Link
                 key={n.href}
                 href={n.href}
                 onClick={() => setOpen(false)}
-                className="py-3 text-sm text-mist-300 transition hover:text-drop-light"
+                className="py-3 text-sm text-text-muted transition hover:text-text"
               >
                 {n.label}
               </Link>
@@ -95,18 +100,16 @@ export default function Header() {
   );
 }
 
-function SearchIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <circle cx="11" cy="11" r="7" />
-      <path d="m21 21-4.3-4.3" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 function CartIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+    >
       <path d="M6 6h15l-1.5 9h-12L6 6Z" strokeLinejoin="round" />
       <path d="M6 6 5 3H2" strokeLinecap="round" strokeLinejoin="round" />
       <circle cx="9" cy="20" r="1.4" />
@@ -117,7 +120,14 @@ function CartIcon() {
 
 function MenuIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+    >
       <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
     </svg>
   );

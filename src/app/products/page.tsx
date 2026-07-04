@@ -2,18 +2,20 @@ import { getAllProducts } from "@/lib/data/products";
 import CatalogView from "@/components/product/CatalogView";
 
 export const metadata = {
-  title: "전체상품 — AQUA LABEL",
+  title: "전체 컬렉션 — MŌRPH",
 };
 
 export default async function ProductsPage() {
   const products = await getAllProducts();
   return (
-    <div className="container-page py-14">
-      <header className="mb-10">
-        <p className="text-sm tracking-[0.3em] text-drop-light">COLLECTION</p>
-        <h1 className="mt-3 text-3xl font-semibold sm:text-4xl">전체상품</h1>
-        <p className="mt-3 text-sm text-mist-400">
-          비 오는 날의 무드를 담은 컬렉션
+    <div className="container-page py-20">
+      <header className="mb-12">
+        <p className="eyebrow">SS26 Collection</p>
+        <h1 className="mt-3 text-display-md font-bold text-chrome">
+          전체 컬렉션
+        </h1>
+        <p className="mt-4 max-w-md text-sm text-text-muted">
+          형태를 다시 쓰는 아방가르드 여성복. 크롬처럼 흐르는 실루엣의 컬렉션.
         </p>
       </header>
       <CatalogView products={products} />
