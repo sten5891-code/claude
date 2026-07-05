@@ -1,9 +1,11 @@
 "use client";
 
-import { Component, useRef, useState, type ReactNode } from "react";
+import { Component, useEffect, useRef, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
+import type { Application } from "@splinetool/runtime";
 import { ArrowDown } from "lucide-react";
 import { gsap, useGSAP, EASE, DURATION } from "@/lib/gsap";
+import { attachSplineControls } from "@/lib/spline";
 import { site } from "@/lib/site";
 
 // Spline 은 브라우저 전용(WebGL) → SSR 비활성화 + 클라이언트에서만 로드
@@ -53,6 +55,10 @@ class SplineBoundary extends Component<{ children: ReactNode }, { failed: boolea
 export function HeroSpline() {
   const root = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(isPlaceholder);
+  const detachRef = useRef<(() => void) | null>(null);
+
+  // Application 제어 정리 (언마운트 시)
+  useEffect(() => () => detachRef.current?.(), []);
 
   useGSAP(
     () => {
@@ -146,7 +152,11 @@ export function HeroSpline() {
             <div className="pointer-events-none h-full w-full">
               <Spline
                 scene={scene}
-                onLoad={() => setLoaded(true)}
+                onLoad={(app: Application) => {
+                  setLoaded(true);
+                  // Code API 제어 연결 (스크롤/마우스 → 씬)
+                  if (root.current) detachRef.current = attachSplineControls(app, root.current);
+                }}
                 style={{ width: "100%", height: "100%" }}
               />
             </div>
