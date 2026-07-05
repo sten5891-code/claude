@@ -1,4 +1,5 @@
 import { site } from "@/lib/site";
+import { Reveal } from "@/components/anim/Reveal";
 
 // Phase 1: 섹션 뼈대(앵커)만 배치합니다.
 // 2~5단계에서 각 Placeholder 를 실제 컴포넌트로 교체합니다.
@@ -16,11 +17,13 @@ function SectionPlaceholder({
   return (
     <section id={id} className="section">
       <div className="container-page">
-        <span className="eyebrow">{eyebrow}</span>
-        <h2 className="heading-2">{title}</h2>
-        <div className="mt-8 flex min-h-40 items-center justify-center rounded-2xl border border-dashed border-border bg-surface/40 text-sm text-muted">
-          {phase} 에서 채워집니다
-        </div>
+        <Reveal>
+          <span className="eyebrow">{eyebrow}</span>
+          <h2 className="heading-2">{title}</h2>
+          <div className="mt-8 flex min-h-40 items-center justify-center rounded-2xl border border-dashed border-border bg-surface/40 text-sm text-muted">
+            {phase} 에서 채워집니다
+          </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Sora } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { site } from "@/lib/site";
@@ -39,9 +40,11 @@ export default function RootLayout({
     <html lang="ko" suppressHydrationWarning className={`${inter.variable} ${sora.variable}`}>
       <body>
         <ThemeProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
+          <SmoothScroll>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>

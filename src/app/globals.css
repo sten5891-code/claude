@@ -23,13 +23,30 @@
   --accent-fg: 240 10% 5%;
 }
 
+/* ── Lenis 필수 스타일 (스무스 스크롤은 Lenis 가 전담) ── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 @layer base {
   * {
     @apply border-border;
   }
   html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 5rem; /* 고정 헤더 높이만큼 앵커 보정 */
+    scroll-padding-top: 5rem; /* 앵커 폴백 보정(모션 최소화 시) */
   }
   body {
     @apply bg-bg text-fg font-sans antialiased;
