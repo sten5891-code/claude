@@ -1,12 +1,33 @@
 import type { Metadata } from "next";
+import { Inter, Sora } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { site } from "@/lib/site";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const sora = Sora({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "RAINDROP TEE — AQUA LABEL",
-  description:
-    "밑단으로 번지는 물방울 그라데이션. 비 오는 날의 무드를 담은 헤더 그레이 티셔츠.",
+  metadataBase: new URL(site.url),
+  title: site.title,
+  description: site.description,
+  openGraph: {
+    title: site.title,
+    description: site.description,
+    url: site.url,
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -15,11 +36,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko">
-      <body className="flex min-h-screen flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+    <html lang="ko" suppressHydrationWarning className={`${inter.variable} ${sora.variable}`}>
+      <body>
+        <ThemeProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

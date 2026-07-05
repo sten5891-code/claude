@@ -2,76 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── 디자인 토큰: HSL 채널값(공백 구분)만 저장 → alpha 조합 가능 ── */
 :root {
-  --font-sans: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR";
+  --bg: 0 0% 100%;
+  --surface: 240 20% 99%;
+  --border: 240 6% 90%;
+  --fg: 240 10% 10%;
+  --muted: 240 4% 46%;
+  --accent: 250 84% 60%;      /* 보라-인디고 포인트 */
+  --accent-fg: 0 0% 100%;
+}
+
+.dark {
+  --bg: 240 10% 5%;
+  --surface: 240 8% 9%;
+  --border: 240 6% 18%;
+  --fg: 240 10% 96%;
+  --muted: 240 5% 62%;
+  --accent: 250 90% 68%;
+  --accent-fg: 240 10% 5%;
 }
 
 @layer base {
+  * {
+    @apply border-border;
+  }
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5rem; /* 고정 헤더 높이만큼 앵커 보정 */
   }
   body {
-    @apply bg-ink-950 text-mist-100 antialiased;
-    background-image:
-      radial-gradient(
-        80rem 50rem at 50% -10%,
-        rgba(63, 168, 201, 0.08),
-        transparent 60%
-      ),
-      radial-gradient(
-        60rem 40rem at 100% 0%,
-        rgba(30, 111, 147, 0.06),
-        transparent 55%
-      );
+    @apply bg-bg text-fg font-sans antialiased;
+    text-rendering: optimizeLegibility;
   }
   ::selection {
-    @apply bg-drop/40 text-white;
+    @apply bg-accent/25;
+  }
+  /* 모션 최소화 선호 존중 */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
 @layer components {
-  /* "젖은 유리" 느낌의 카드 */
-  .glass-card {
-    @apply rounded-2xl border border-white/5 bg-white/[0.03] backdrop-blur-sm
-      shadow-wet transition-all duration-300;
-  }
-  .glass-card:hover {
-    @apply border-drop/30 bg-white/[0.05] shadow-glass;
-  }
-
-  .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3
-      text-sm font-medium transition-all duration-300 disabled:cursor-not-allowed
-      disabled:opacity-40;
-  }
-  .btn-primary {
-    @apply btn bg-gradient-to-r from-drop to-drop-deep text-white
-      hover:shadow-glass hover:brightness-110;
-  }
-  .btn-ghost {
-    @apply btn border border-white/10 bg-white/[0.02] text-mist-100
-      hover:border-drop/40 hover:bg-white/[0.06];
-  }
-
-  .field {
-    @apply w-full rounded-xl border border-white/10 bg-ink-900/80 px-4 py-3
-      text-sm text-mist-100 placeholder:text-mist-400 outline-none
-      transition focus:border-drop/50 focus:ring-2 focus:ring-drop/20;
-  }
-
+  /* 페이지 공통 좌우 여백 + 최대 폭 */
   .container-page {
-    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-content px-6 sm:px-8;
   }
-}
-
-/* 모션 최소화 환경 존중 */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+  /* 섹션 상하 리듬 */
+  .section {
+    @apply scroll-mt-20 py-24 sm:py-32;
+  }
+  /* 섹션 제목 위 라벨 */
+  .eyebrow {
+    @apply mb-3 inline-block text-sm font-medium uppercase tracking-widest text-accent;
+  }
+  .heading-2 {
+    @apply font-display text-3xl font-bold tracking-tight sm:text-4xl;
+  }
+  /* 그라데이션 텍스트 */
+  .text-gradient {
+    @apply bg-gradient-to-r from-accent via-accent to-fg bg-clip-text text-transparent;
   }
 }
