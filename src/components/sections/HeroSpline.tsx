@@ -12,8 +12,11 @@ const Spline = dynamic(() => import("@splinetool/react-spline"), {
   loading: () => <CanvasSkeleton />,
 });
 
-// placeholder URL 이면 네트워크 요청 없이 바로 폴백 사용
-const isPlaceholder = !site.splineScene || site.splineScene.includes("your-scene");
+// URL 형식 판별
+const scene = site.splineScene ?? "";
+const isPlaceholder = !scene || scene.includes("your-scene");
+// my.spline.design 뷰어 링크는 iframe 임베드, prod ...scene.splinecode 는 react-spline
+const isIframe = scene.includes("my.spline.design") || scene.includes("/embed");
 
 function CanvasSkeleton() {
   return (
@@ -119,26 +122,43 @@ export function HeroSpline() {
       id="home"
       className="relative flex min-h-screen items-center overflow-hidden"
     >
-      {/* 3D 캔버스 레이어 (절대배치, 클릭 통과) */}
-      <div className="hero-3d pointer-events-none absolute inset-0 -z-10">
+      {/* 3D 캔버스 레이어 (절대배치) */}
+      <div className="hero-3d absolute inset-0">
         {isPlaceholder ? (
           <FallbackOrb />
+        ) : isIframe ? (
+          // 뷰어 링크: iframe 임베드 — 씬 자체 hover 인터랙션 유지 위해 클릭 허용
+          <>
+            {!loaded && <CanvasSkeleton />}
+            <iframe
+              src={scene}
+              title="3D scene"
+              loading="lazy"
+              allow="autoplay; fullscreen; xr-spatial-tracking"
+              onLoad={() => setLoaded(true)}
+              className="h-full w-full border-0"
+            />
+          </>
         ) : (
+          // 코드 export 링크: react-spline (클릭 통과)
           <SplineBoundary>
             {!loaded && <CanvasSkeleton />}
-            <Spline
-              scene={site.splineScene}
-              onLoad={() => setLoaded(true)}
-              style={{ width: "100%", height: "100%" }}
-            />
+            <div className="pointer-events-none h-full w-full">
+              <Spline
+                scene={scene}
+                onLoad={() => setLoaded(true)}
+                style={{ width: "100%", height: "100%" }}
+              />
+            </div>
           </SplineBoundary>
         )}
-        {/* 하단 그라데이션으로 타이포 가독성 확보 */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-transparent" />
+        {/* 하단/좌측 그라데이션으로 타이포 가독성 확보 (클릭 통과) */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg via-bg/30 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-bg via-bg/50 to-transparent sm:via-bg/20" />
       </div>
 
       {/* 타이포그래피 오버레이 (절대배치 shell) */}
-      <div className="hero-copy container-page relative">
+      <div className="hero-copy container-page relative z-10">
         <span className="eyebrow">{site.role}</span>
         <h1 className="max-w-3xl font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-7xl">
           안녕하세요,
