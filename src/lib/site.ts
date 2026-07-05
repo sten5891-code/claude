@@ -13,6 +13,9 @@ export const site = {
   title: "이름 — Portfolio",
   description: "프론트엔드 개발자 포트폴리오. 프로젝트와 경력을 소개합니다.",
   url: "https://example.com",
+  // Spline 3D 씬 URL — Spline 에디터의 Export > Public URL 값을 붙여넣으세요.
+  // 비워두거나 placeholder(your-scene)면 자동으로 그라데이션 오브 폴백이 표시됩니다.
+  splineScene: "https://prod.spline.design/your-scene/scene.splinecode",
 } as const;
 
 // 헤더/사이드 네비게이션 — 각 섹션 앵커
