@@ -1,5 +1,6 @@
 import { site } from "@/lib/site";
 import { Reveal } from "@/components/anim/Reveal";
+import { ScrollStory } from "@/components/sections/ScrollStory";
 
 // Phase 1: 섹션 뼈대(앵커)만 배치합니다.
 // 2~5단계에서 각 Placeholder 를 실제 컴포넌트로 교체합니다.
@@ -55,6 +56,9 @@ export default function HomePage() {
           </p>
         </div>
       </section>
+
+      {/* 스크롤 스토리텔링 — 2단계 */}
+      <ScrollStory />
 
       <SectionPlaceholder id="about" eyebrow="About" title="소개 & 기술" phase="3단계" />
       <SectionPlaceholder id="projects" eyebrow="Work" title="프로젝트" phase="4단계" />
