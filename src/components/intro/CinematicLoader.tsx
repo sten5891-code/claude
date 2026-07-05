@@ -6,6 +6,7 @@ import { useLenis } from "@/components/providers/SmoothScroll";
 import { site } from "@/lib/site";
 
 const MIN_DURATION = 2500; // 최소 노출 시간(ms) — 인트로가 절대 성급해 보이지 않도록 강제
+const SEEN_KEY = "intro-seen"; // 세션당 1회만 노출
 
 export function CinematicLoader() {
   const [active, setActive] = useState(true);
@@ -15,7 +16,16 @@ export function CinematicLoader() {
   const copyRef = useRef<HTMLDivElement>(null);
   const startRef = useRef<number>(0);
   const wipedRef = useRef(false);
+  const skipRef = useRef(false);
   const lenis = useLenis();
+
+  // 이번 세션에서 이미 봤으면 즉시 스킵 (SSR/hydration 일치 위해 마운트 후 판정)
+  useEffect(() => {
+    if (sessionStorage.getItem(SEEN_KEY)) {
+      skipRef.current = true;
+      setActive(false);
+    }
+  }, []);
 
   // 인트로 동안 스크롤 잠금 (Lenis + 문서 오버플로우)
   useEffect(() => {
@@ -36,6 +46,7 @@ export function CinematicLoader() {
 
   // 0 → 100% 카운터 (랜덤 인터벌 + 랜덤 증가폭)
   useEffect(() => {
+    if (skipRef.current) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) {
       setProgress(100);
@@ -56,7 +67,7 @@ export function CinematicLoader() {
 
   // 100% 도달 → 최소 2.5초 보장 후 와이프 트랜지션
   useEffect(() => {
-    if (progress < 100 || wipedRef.current) return;
+    if (skipRef.current || progress < 100 || wipedRef.current) return;
     const elapsed = performance.now() - startRef.current;
     const wait = Math.max(0, MIN_DURATION - elapsed);
 
@@ -65,7 +76,16 @@ export function CinematicLoader() {
       wipedRef.current = true;
 
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const tl = gsap.timeline({ onComplete: () => setActive(false) });
+      const tl = gsap.timeline({
+        onComplete: () => {
+          try {
+            sessionStorage.setItem(SEEN_KEY, "1");
+          } catch {
+            /* noop */
+          }
+          setActive(false);
+        },
+      });
       // 카운터/카피 먼저 페이드아웃
       tl.to(copyRef.current, {
         opacity: 0,
