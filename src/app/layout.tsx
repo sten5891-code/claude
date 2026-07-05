@@ -20,14 +20,20 @@ const sora = Sora({
   display: "swap",
 });
 
+// 배포 도메인 자동 판별: 명시 env > Vercel 배포 URL > site.ts 기본값
+// → OG/트위터 이미지의 절대 URL 이 배포 환경에서 올바르게 생성됩니다.
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : site.url);
+
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
+  metadataBase: new URL(siteUrl),
   title: site.title,
   description: site.description,
   openGraph: {
     title: site.title,
     description: site.description,
-    url: site.url,
+    url: siteUrl,
     type: "website",
   },
 };
