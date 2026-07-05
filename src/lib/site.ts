@@ -17,7 +17,7 @@ export const site = {
   //  1) 뷰어(embed) 링크: https://my.spline.design/xxxx/  → iframe 으로 임베드
   //  2) 코드 export 링크: https://prod.spline.design/xxxx/scene.splinecode → react-spline
   // 비워두거나 your-scene placeholder 면 그라데이션 오브 폴백이 표시됩니다.
-  splineScene: "https://my.spline.design/boxeshover-kbqSGeAhbgk4y3m4Jq1R2wgN/",
+  splineScene: "https://my.spline.design/boxeshover-XD1lncmURhKOSK2VAJh7b1lV/",
 } as const;
 
 // ── Spline Code API 제어 설정 ──────────────────────────────
