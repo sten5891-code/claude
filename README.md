@@ -8,17 +8,20 @@ Next.js 14 + TypeScript + Tailwind CSS 로 만드는 고품질 개인 포트폴�
 - **Next.js 14 (App Router) + TypeScript**
 - **Tailwind CSS** — CSS 변수 기반 디자인 토큰, 라이트/다크 자동 전환
 - **next-themes** — 다크모드 토글(기본 다크)
-- **framer-motion** — 스크롤/등장 애니메이션 (2단계~)
+- **GSAP + ScrollTrigger** — 스크롤 스토리텔링(핀·스크럽·스태거), 전역 이징/지속시간
+- **Lenis** — 부드러운 스크롤 → GSAP ticker 통합
+- **react-three-fiber + drei (three.js)** — 히어로 3D 박스 그리드(마우스 반응)
+- **next/og** — 소셜 공유 이미지 동적 생성
 - **lucide-react** — 아이콘
 
 ## 구축 단계
 
-- [x] **1단계 — 기반 구축**: 디자인 시스템, 다크모드, 레이아웃(Header/Footer), 네비게이션, 섹션 뼈대
-- [ ] **2단계 — Hero**: 임팩트 첫 화면 + 모션
-- [ ] **3단계 — About / Skills**: 소개, 기술 스택
-- [ ] **4단계 — Projects**: 프로젝트 그리드/상세
-- [ ] **5단계 — Experience / Contact**: 경력 타임라인, 연락처
-- [ ] **6단계 — 폴리싱 & 배포**: 반응형/접근성/SEO/성능
+- [x] **1단계 — 스택 셋업**: GSAP + ScrollTrigger + Lenis 연결, 전역 gsap-config
+- [x] **2단계 — 스크롤 스토리텔링**: `.pin-section` 핀 + 스크럽 타임라인 + 스태거
+- [x] **3단계 — 비주얼 히어로**: 3D 히어로(R3F 박스 그리드) + hover/scroll 반응
+- [x] **4단계 — 시네마틱 인트로 로더**: 카운터 → 패널 와이프(power4.inOut)
+- [ ] **5단계 — 모바일 최적화**
+- 부가: favicon/OG 이미지, 세션 1회 인트로, Vercel 배포 설정
 
 ## 로컬 실행
 

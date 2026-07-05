@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/anim/Reveal";
-import { HeroSpline } from "@/components/sections/HeroSpline";
+import { HeroR3F } from "@/components/sections/HeroR3F";
 import { ScrollStory } from "@/components/sections/ScrollStory";
 
 // Phase 1: 섹션 뼈대(앵커)만 배치합니다.
@@ -33,8 +33,8 @@ function SectionPlaceholder({
 export default function HomePage() {
   return (
     <>
-      {/* Hero + Spline 3D — 3단계 */}
-      <HeroSpline />
+      {/* Hero + R3F 3D (박스 그리드) */}
+      <HeroR3F />
 
       {/* 스크롤 스토리텔링 — 2단계 */}
       <ScrollStory />
