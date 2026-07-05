@@ -3,6 +3,7 @@ import { Inter, Sora } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { CinematicLoader } from "@/components/intro/CinematicLoader";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { site } from "@/lib/site";
@@ -41,6 +42,7 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <SmoothScroll>
+            <CinematicLoader />
             <Header />
             <main>{children}</main>
             <Footer />

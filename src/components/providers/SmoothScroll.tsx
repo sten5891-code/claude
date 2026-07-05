@@ -1,15 +1,15 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
-// 다른 컴포넌트(예: 네비 클릭 시 부드러운 이동)에서 Lenis 인스턴스에 접근할 때 사용
+// 다른 컴포넌트(스크롤 락, 앵커 이동 등)에서 Lenis 인스턴스에 접근할 때 사용
 const LenisContext = createContext<Lenis | null>(null);
 export const useLenis = () => useContext(LenisContext);
 
 export function SmoothScroll({ children }: { children: ReactNode }) {
-  const lenisRef = useRef<Lenis | null>(null);
+  const [lenis, setLenis] = useState<Lenis | null>(null);
 
   useEffect(() => {
     // 모션 최소화 선호 시: Lenis 스무딩을 끄고 네이티브 스크롤 사용
@@ -21,7 +21,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: !reduce,
     });
-    lenisRef.current = lenis;
+    setLenis(lenis);
 
     // 1) Lenis 가 스크롤할 때마다 ScrollTrigger 를 갱신 → 스크롤 값 동기화
     lenis.on("scroll", ScrollTrigger.update);
@@ -48,9 +48,9 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       document.removeEventListener("click", onAnchorClick);
       gsap.ticker.remove(update);
       lenis.destroy();
-      lenisRef.current = null;
+      setLenis(null);
     };
   }, []);
 
-  return <LenisContext.Provider value={lenisRef.current}>{children}</LenisContext.Provider>;
+  return <LenisContext.Provider value={lenis}>{children}</LenisContext.Provider>;
 }
